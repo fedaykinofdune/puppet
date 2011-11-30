@@ -1,0 +1,19 @@
+This repository is for various puppet modules and scripts.
+
+
+
+---
+Puppet Clean Stored Configs script
+
+Requirements:
+puppet with stored configs turned on
+mysql backend
+php, php-mysql module
+
+Description:
+This php script will remove all hosts, facts, and resources from the puppet mysql database that refer to a host that hasn't checked in with the puppet master in 7 (default) days.
+
+Installation:
+Copy the puppet-clean-stored-configs.php to your puppet master.  Execute "php puppet-clean-stored-configs.php".
+
+
