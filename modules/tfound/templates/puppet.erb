@@ -1,0 +1,37 @@
+##
+### THIS FILE IS UNDER PUPPET CONTROL. DON'T EDIT IT HERE.
+##
+
+[main]
+	vardir = /var/lib/puppet
+	logdir = /var/log/puppet
+	rundir = /var/run/puppet
+	ssldir = $vardir/ssl
+	server = <%= scope.lookupvar('tfound::puppetmaster') %>
+	pluginsync = true
+	factpath = $vardir/lib/facter
+	runinterval = 3600
+    environment = <%= environment %>
+<%- if @nodeless_datacenter -%>
+    datacenter  = <%= nodeless_datacenter %>
+<%- end -%>
+[agent]
+	classfile = $vardir/classes.txt
+	localconfig = $vardir/localconfig
+	report = true
+
+<%- if hostname.include?("config-mgr") -%>
+[master]
+	storeconfigs = true
+#	rrddir=/var/lib/puppet/rrd
+#	rrdinterval=$runinterval
+#	rrdgraph=true
+#	reports=store, http
+#    reporturl = http://<%= scope.lookupvar('tfound::puppetmaster') %>:3000/reports/upload
+#    modulepath=$confdir/modules:/usr/share/puppet/modules
+    dbadapter = mysql
+    dbuser = puppet
+    dbpassword = pupp3t
+    dbserver = localhost
+    dbsocket = /var/run/mysqld/mysqld.sock
+<%- end -%>

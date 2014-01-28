@@ -1,0 +1,1 @@
+cgminer --scrypt -o stratum+tcp://coye.us1.hackshard.com:3335 -u jaye.worker1 -p worker1 -I 20 -g 1 -w 512 --thread-concurrency 33792 --gpu-engine 1025 --gpu-fan 40-100 --gpu-memclock 1500 --gpu-powertune 20 --temp-cutoff 99 --temp-overheat 95 --temp-target 90
