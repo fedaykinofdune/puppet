@@ -19,15 +19,11 @@ def do_array(arr):
 def checktype(checkme):
   if type(checkme) is list:
     do_list(checkme)
-  elif type(checkme) is tuple:
+  elif type(checkme) in [tuple,dict]:
     do_array(checkme)
-  elif type(checkme) is dict:
-    do_array(checkme)
-  elif type(checkme) is str:
-    print "value=%s" % checkme
   elif type(checkme) is int:
     print "value=%d" % checkme
-  elif type(checkme) is bool:
+  elif type(checkme) in [str,bool]:
     print "value=%s" % checkme
   else:
     print type(checkme)
@@ -47,9 +43,15 @@ def checkresources(data):
       changes=True
       print "============="
       print "Resource %s has been changed on this puppet run" % key
+      print "Resource defined in %s, line %s" % (data['resource_statuses'][key]['file'],data['resource_statuses'][key]['line'])
+      print "Message: %s" % data['resource_statuses'][key]['events'][0]['message']
+      print "Property: %s" % data['resource_statuses'][key]['events'][0]['property']
+      print "Time: %s" % data['resource_statuses'][key]['events'][0]['time']
+      print "Previous value: %s" % data['resource_statuses'][key]['events'][0]['previous_value']
+      print "Desired value: %s" % data['resource_statuses'][key]['events'][0]['desired_value']
       changedfiles.append(key)
   if changes:
-    print "Here are a list of changed files:"
+    print "Here is a list changed files:"
     print changedfiles
 
 def mainloop():
